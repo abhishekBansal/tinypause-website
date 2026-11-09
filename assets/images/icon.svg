@@ -1,6 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-  <rect x="2" y="2" width="44" height="44" rx="15" fill="#e8ece7"/>
-  <circle cx="24" cy="24" r="15" fill="none" stroke="#8ca287" stroke-opacity=".45"/>
-  <circle cx="24" cy="24" r="11" fill="none" stroke="#8ca287" stroke-opacity=".65"/>
-  <path d="M24 14c0 5.523-4.477 10-10 10 5.523 0 10 4.477 10 10 0-5.523 4.477-10 10-10-5.523 0-10-4.477-10-10Z" fill="#1b382b"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="tp-grad" x1="2" y1="2" x2="46" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <linearGradient id="tp-inner" x1="24" y1="8" x2="24" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#34D399" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#064E3B" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <!-- Background rounded squircle -->
+  <rect x="2" y="2" width="44" height="44" rx="13" fill="#061C14"/>
+  <rect x="2" y="2" width="44" height="44" rx="13" fill="url(#tp-grad)"/>
+  <rect x="2.75" y="2.75" width="42.5" height="42.5" rx="12.25" stroke="#6EE7B7" stroke-width="1.5" stroke-opacity="0.45"/>
+  <circle cx="24" cy="24" r="16" fill="url(#tp-inner)"/>
+  <circle cx="24" cy="24" r="16" stroke="#A7F3D0" stroke-width="1" stroke-opacity="0.25"/>
+  <!-- Two Pause Bars with smooth pill caps -->
+  <rect x="17.5" y="15" width="4.5" height="18" rx="2.25" fill="#FFFFFF"/>
+  <rect x="26" y="15" width="4.5" height="18" rx="2.25" fill="#FFFFFF"/>
 </svg>
