@@ -229,18 +229,14 @@
         <!-- Right Dual Quick-Install CTAs -->
         <div class="flex items-center gap-2.5">
           <a href="https://chromewebstore.google.com/detail/tinypause/amaljiibipeopjnpdmhdaillohkjoapi" target="_blank" rel="noopener noreferrer"
-             class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/25 transition-all">
-            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-              <path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.73c-.91-3.79-4.267-6.545-8.28-6.545zm-1.05 13.091l-4.5-7.794A11.96 11.96 0 0 0 0 12c0 5.482 3.68 10.106 8.654 11.512l3.953-6.848a5.455 5.455 0 0 1-1.657-3.573zm7.848-1.091a5.452 5.452 0 0 1-.848 2.909L12.553 24H12c6.627 0 12-5.373 12-12 0-.342-.016-.68-.044-1.015L16.29 12h2.508zM12 16.364a4.364 4.364 0 1 0 0-8.728 4.364 4.364 0 0 0 0 8.728z"/>
-            </svg>
+             class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700/80 hover:border-emerald-500/80 hover:bg-slate-800 text-white font-semibold text-xs transition-all shadow-md">
+            <img src="assets/images/chrome.svg" alt="Chrome" class="w-4 h-4 flex-shrink-0">
             <span class="hidden sm:inline">Add to Chrome</span>
             <span class="sm:hidden">Chrome</span>
           </a>
           <a href="https://addons.mozilla.org/en-US/firefox/addon/tinypause/" target="_blank" rel="noopener noreferrer"
-             class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#0B0F17] border border-[#1E293B] text-slate-200 font-semibold text-xs hover:text-white hover:border-slate-500 hover:bg-slate-900 transition-all">
-            <svg class="w-4 h-4 fill-current text-orange-400" viewBox="0 0 24 24">
-              <path d="M12.001 0a12 12 0 0 0-9.28 19.605 11.95 11.95 0 0 0 7.828 4.33c.277.037.498-.19.498-.468v-1.62c0-.34-.234-.636-.566-.71-2.427-.542-3.844-2.18-3.924-4.22-.05-1.25.437-2.39 1.155-3.327.245-.32.062-.79-.344-.863-.615-.11-1.268.04-1.745.422.868-2.316 2.793-3.996 5.127-4.52.274-.061.545.109.585.388.163 1.135.808 2.15 1.776 2.76.24.152.553.045.666-.219.444-1.037 1.345-1.848 2.457-2.18.293-.087.575.125.567.43-.058 2.228 1.136 4.29 3.013 5.25.263.134.58.006.677-.272.28-.797.351-1.666.197-2.532 1.628 1.83 2.502 4.215 2.463 6.7-.01.62-.098 1.229-.26 1.815-.084.305.124.607.438.583a11.956 11.956 0 0 0 4.184-2.226A12 12 0 0 0 12 0z"/>
-            </svg>
+             class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700/80 hover:border-orange-500/80 hover:bg-slate-800 text-white font-semibold text-xs transition-all shadow-md">
+            <img src="assets/images/firefox.svg" alt="Firefox" class="w-4 h-4 flex-shrink-0">
             <span class="hidden sm:inline">Add to Firefox</span>
             <span class="sm:hidden">Firefox</span>
           </a>
@@ -279,28 +275,28 @@
           
           <!-- Primary Chrome CTA -->
           <a id="hero-chrome-btn" href="https://chromewebstore.google.com/detail/tinypause/amaljiibipeopjnpdmhdaillohkjoapi" target="_blank" rel="noopener noreferrer"
-             class="group relative flex-1 flex items-center justify-center gap-3.5 px-6 py-4 rounded-2xl bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-400 glow-emerald hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 shadow-xl">
-            <svg class="w-6 h-6 fill-current flex-shrink-0" viewBox="0 0 24 24">
-              <path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.73c-.91-3.79-4.267-6.545-8.28-6.545zm-1.05 13.091l-4.5-7.794A11.96 11.96 0 0 0 0 12c0 5.482 3.68 10.106 8.654 11.512l3.953-6.848a5.455 5.455 0 0 1-1.657-3.573zm7.848-1.091a5.452 5.452 0 0 1-.848 2.909L12.553 24H12c6.627 0 12-5.373 12-12 0-.342-.016-.68-.044-1.015L16.29 12h2.508zM12 16.364a4.364 4.364 0 1 0 0-8.728 4.364 4.364 0 0 0 0 8.728z"/>
-            </svg>
-            <div class="text-left leading-tight">
-              <span class="block text-xs uppercase font-mono tracking-wider opacity-80 font-semibold">Install for</span>
-              <span class="text-base font-extrabold tracking-tight">Google Chrome</span>
+             class="group relative flex-1 flex items-center justify-center gap-3.5 px-6 py-4 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-emerald-500/80 text-white font-bold hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 shadow-xl shadow-emerald-500/10">
+            <div class="w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center flex-shrink-0 p-1.5 shadow-inner">
+              <img src="assets/images/chrome.svg" alt="Google Chrome" class="w-full h-full object-contain">
             </div>
-            <span class="hidden md:inline-block ml-auto text-xs px-2 py-0.5 rounded-md bg-emerald-950/20 text-slate-950 font-mono font-bold">Free</span>
+            <div class="text-left leading-tight">
+              <span id="hero-chrome-badge" class="block text-[11px] uppercase font-mono tracking-wider text-emerald-400 font-bold">Recommended for you</span>
+              <span class="text-base font-extrabold tracking-tight text-white group-hover:text-emerald-300 transition-colors">Google Chrome</span>
+            </div>
+            <span id="hero-chrome-pill" class="hidden md:inline-block ml-auto text-xs px-2 py-0.5 rounded-md bg-emerald-500 text-slate-950 font-mono font-bold">Free</span>
           </a>
 
           <!-- Primary Firefox CTA -->
           <a id="hero-firefox-btn" href="https://addons.mozilla.org/en-US/firefox/addon/tinypause/" target="_blank" rel="noopener noreferrer"
-             class="group relative flex-1 flex items-center justify-center gap-3.5 px-6 py-4 rounded-2xl bg-[#0B0F17] border border-[#1E293B] text-white font-bold hover:border-slate-500 hover:bg-slate-900 glow-orange hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 shadow-xl">
-            <svg class="w-6 h-6 fill-current text-orange-400 flex-shrink-0" viewBox="0 0 24 24">
-              <path d="M12.001 0a12 12 0 0 0-9.28 19.605 11.95 11.95 0 0 0 7.828 4.33c.277.037.498-.19.498-.468v-1.62c0-.34-.234-.636-.566-.71-2.427-.542-3.844-2.18-3.924-4.22-.05-1.25.437-2.39 1.155-3.327.245-.32.062-.79-.344-.863-.615-.11-1.268.04-1.745.422.868-2.316 2.793-3.996 5.127-4.52.274-.061.545.109.585.388.163 1.135.808 2.15 1.776 2.76.24.152.553.045.666-.219.444-1.037 1.345-1.848 2.457-2.18.293-.087.575.125.567.43-.058 2.228 1.136 4.29 3.013 5.25.263.134.58.006.677-.272.28-.797.351-1.666.197-2.532 1.628 1.83 2.502 4.215 2.463 6.7-.01.62-.098 1.229-.26 1.815-.084.305.124.607.438.583a11.956 11.956 0 0 0 4.184-2.226A12 12 0 0 0 12 0z"/>
-            </svg>
-            <div class="text-left leading-tight">
-              <span class="block text-xs uppercase font-mono tracking-wider text-slate-400 font-semibold">Install for</span>
-              <span class="text-base font-extrabold tracking-tight">Firefox Browser</span>
+             class="group relative flex-1 flex items-center justify-center gap-3.5 px-6 py-4 rounded-2xl bg-slate-900/80 border border-slate-700/80 text-white font-bold hover:border-orange-500/80 hover:bg-slate-800/90 hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 shadow-xl">
+            <div class="w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center flex-shrink-0 p-1.5 shadow-inner">
+              <img src="assets/images/firefox.svg" alt="Firefox Browser" class="w-full h-full object-contain">
             </div>
-            <span class="hidden md:inline-block ml-auto text-xs px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 font-mono font-bold">Free</span>
+            <div class="text-left leading-tight">
+              <span id="hero-firefox-badge" class="block text-xs uppercase font-mono tracking-wider text-slate-400 font-semibold">Also available on</span>
+              <span class="text-base font-extrabold tracking-tight text-white group-hover:text-orange-300 transition-colors">Firefox Browser</span>
+            </div>
+            <span id="hero-firefox-pill" class="hidden md:inline-block ml-auto text-xs px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 font-mono font-bold">Free</span>
           </a>
 
         </div>
@@ -738,25 +734,25 @@
           
           <!-- Bottom Chrome Button -->
           <a href="https://chromewebstore.google.com/detail/tinypause/amaljiibipeopjnpdmhdaillohkjoapi" target="_blank" rel="noopener noreferrer"
-             class="flex-1 flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-400 glow-emerald hover:scale-[1.02] active:scale-[0.99] transition-all shadow-xl">
-            <svg class="w-6 h-6 fill-current flex-shrink-0" viewBox="0 0 24 24">
-              <path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.73c-.91-3.79-4.267-6.545-8.28-6.545zm-1.05 13.091l-4.5-7.794A11.96 11.96 0 0 0 0 12c0 5.482 3.68 10.106 8.654 11.512l3.953-6.848a5.455 5.455 0 0 1-1.657-3.573zm7.848-1.091a5.452 5.452 0 0 1-.848 2.909L12.553 24H12c6.627 0 12-5.373 12-12 0-.342-.016-.68-.044-1.015L16.29 12h2.508zM12 16.364a4.364 4.364 0 1 0 0-8.728 4.364 4.364 0 0 0 0 8.728z"/>
-            </svg>
+             class="flex-1 flex items-center justify-center gap-3.5 px-6 py-4 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-700/80 hover:border-emerald-500/80 hover:scale-[1.02] active:scale-[0.99] transition-all shadow-xl">
+            <div class="w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center flex-shrink-0 p-1.5 shadow-inner">
+              <img src="assets/images/chrome.svg" alt="Google Chrome" class="w-full h-full object-contain">
+            </div>
             <div class="text-left leading-tight">
-              <span class="block text-[11px] uppercase font-mono tracking-wider opacity-80">Add to</span>
-              <span class="text-base font-extrabold">Google Chrome</span>
+              <span class="block text-[11px] uppercase font-mono tracking-wider text-slate-400">Add to</span>
+              <span class="text-base font-extrabold text-white">Google Chrome</span>
             </div>
           </a>
 
           <!-- Bottom Firefox Button -->
           <a href="https://addons.mozilla.org/en-US/firefox/addon/tinypause/" target="_blank" rel="noopener noreferrer"
-             class="flex-1 flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-[#0B0F17] border border-[#1E293B] text-white font-bold hover:border-slate-500 hover:bg-slate-900 glow-orange hover:scale-[1.02] active:scale-[0.99] transition-all shadow-xl">
-            <svg class="w-6 h-6 fill-current text-orange-400 flex-shrink-0" viewBox="0 0 24 24">
-              <path d="M12.001 0a12 12 0 0 0-9.28 19.605 11.95 11.95 0 0 0 7.828 4.33c.277.037.498-.19.498-.468v-1.62c0-.34-.234-.636-.566-.71-2.427-.542-3.844-2.18-3.924-4.22-.05-1.25.437-2.39 1.155-3.327.245-.32.062-.79-.344-.863-.615-.11-1.268.04-1.745.422.868-2.316 2.793-3.996 5.127-4.52.274-.061.545.109.585.388.163 1.135.808 2.15 1.776 2.76.24.152.553.045.666-.219.444-1.037 1.345-1.848 2.457-2.18.293-.087.575.125.567.43-.058 2.228 1.136 4.29 3.013 5.25.263.134.58.006.677-.272.28-.797.351-1.666.197-2.532 1.628 1.83 2.502 4.215 2.463 6.7-.01.62-.098 1.229-.26 1.815-.084.305.124.607.438.583a11.956 11.956 0 0 0 4.184-2.226A12 12 0 0 0 12 0z"/>
-            </svg>
+             class="flex-1 flex items-center justify-center gap-3.5 px-6 py-4 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-700/80 hover:border-orange-500/80 hover:scale-[1.02] active:scale-[0.99] transition-all shadow-xl">
+            <div class="w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center flex-shrink-0 p-1.5 shadow-inner">
+              <img src="assets/images/firefox.svg" alt="Firefox Browser" class="w-full h-full object-contain">
+            </div>
             <div class="text-left leading-tight">
               <span class="block text-[11px] uppercase font-mono tracking-wider text-slate-400">Add to</span>
-              <span class="text-base font-extrabold">Firefox Browser</span>
+              <span class="text-base font-extrabold text-white">Firefox Browser</span>
             </div>
           </a>
 
@@ -780,14 +776,16 @@
       </div>
       <div class="flex items-center gap-2">
         <a href="https://chromewebstore.google.com/detail/tinypause/amaljiibipeopjnpdmhdaillohkjoapi" target="_blank" rel="noopener noreferrer"
-           class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs hover:bg-emerald-400 transition-all shadow-md">
+           class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-bold text-xs hover:border-emerald-500 hover:bg-slate-800 transition-all shadow-md">
+          <img src="assets/images/chrome.svg" alt="Chrome" class="w-3.5 h-3.5 flex-shrink-0">
           <span>Chrome</span>
-          <span class="text-[10px] font-mono">↗</span>
+          <span class="text-[10px] font-mono text-emerald-400">↗</span>
         </a>
         <a href="https://addons.mozilla.org/en-US/firefox/addon/tinypause/" target="_blank" rel="noopener noreferrer"
-           class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 font-semibold text-xs hover:text-white hover:border-slate-500 transition-all">
+           class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-semibold text-xs hover:border-orange-500 hover:bg-slate-800 transition-all shadow-md">
+          <img src="assets/images/firefox.svg" alt="Firefox" class="w-3.5 h-3.5 flex-shrink-0">
           <span>Firefox</span>
-          <span class="text-[10px] font-mono">↗</span>
+          <span class="text-[10px] font-mono text-orange-400">↗</span>
         </a>
         <button id="close-sticky-bar" aria-label="Dismiss sticky install bar" class="text-slate-400 hover:text-white p-1 text-xs ml-1 cursor-pointer">&times;</button>
       </div>
@@ -802,8 +800,14 @@
         <a href="https://anvik.studio" class="hover:text-white transition-colors">anvik.studio</a>
         <a href="https://devtools.anvik.studio" class="hover:text-white transition-colors">DevTools</a>
         <a href="https://fluxwall.anvik.studio" class="hover:text-white transition-colors">FluxWall</a>
-        <a href="https://chromewebstore.google.com/detail/tinypause/amaljiibipeopjnpdmhdaillohkjoapi" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Chrome Web Store ↗</a>
-        <a href="https://addons.mozilla.org/en-US/firefox/addon/tinypause/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Firefox Add-ons ↗</a>
+        <a href="https://chromewebstore.google.com/detail/tinypause/amaljiibipeopjnpdmhdaillohkjoapi" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:text-white transition-colors">
+          <img src="assets/images/chrome.svg" alt="Chrome" class="w-3.5 h-3.5 flex-shrink-0">
+          <span>Chrome Web Store ↗</span>
+        </a>
+        <a href="https://addons.mozilla.org/en-US/firefox/addon/tinypause/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:text-white transition-colors">
+          <img src="assets/images/firefox.svg" alt="Firefox" class="w-3.5 h-3.5 flex-shrink-0">
+          <span>Firefox Add-ons ↗</span>
+        </a>
       </div>
     </footer>
 
@@ -812,17 +816,36 @@
   <!-- Interactive Scripts: Browser Detection, Screenshot Switcher, Simulator & Scroll Trigger -->
   <script>
     // 1. Smart Browser Detection & Button Accenting
-    const userAgent = navigator.userAgent.toLowerCase();
+    const userAgent = (navigator.userAgent || '').toLowerCase();
     const isFirefox = userAgent.includes('firefox');
     const heroChromeBtn = document.getElementById('hero-chrome-btn');
     const heroFirefoxBtn = document.getElementById('hero-firefox-btn');
+    const heroChromeBadge = document.getElementById('hero-chrome-badge');
+    const heroFirefoxBadge = document.getElementById('hero-firefox-badge');
+    const heroChromePill = document.getElementById('hero-chrome-pill');
+    const heroFirefoxPill = document.getElementById('hero-firefox-pill');
 
-    if (isFirefox && heroFirefoxBtn && heroChromeBtn) {
-      // Accent Firefox button for Firefox users
-      heroFirefoxBtn.className = heroFirefoxBtn.className.replace('bg-[#0B0F17]', 'bg-orange-500 text-slate-950 font-bold hover:bg-orange-400');
-      const sub = heroFirefoxBtn.querySelector('span.text-slate-400');
-      if (sub) sub.className = 'block text-xs uppercase font-mono tracking-wider text-slate-950 font-bold';
-      heroChromeBtn.className = heroChromeBtn.className.replace('bg-emerald-500 text-slate-950 glow-emerald', 'bg-[#0B0F17] text-white border border-[#1E293B] hover:bg-slate-900');
+    if (isFirefox) {
+      if (heroFirefoxBtn) {
+        heroFirefoxBtn.className = 'group relative flex-1 flex items-center justify-center gap-3.5 px-6 py-4 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-orange-500/80 text-white font-bold hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 shadow-xl shadow-orange-500/10';
+      }
+      if (heroFirefoxBadge) {
+        heroFirefoxBadge.textContent = 'Recommended for you';
+        heroFirefoxBadge.className = 'block text-[11px] uppercase font-mono tracking-wider text-orange-400 font-bold';
+      }
+      if (heroFirefoxPill) {
+        heroFirefoxPill.className = 'hidden md:inline-block ml-auto text-xs px-2 py-0.5 rounded-md bg-orange-500 text-slate-950 font-mono font-bold';
+      }
+      if (heroChromeBtn) {
+        heroChromeBtn.className = 'group relative flex-1 flex items-center justify-center gap-3.5 px-6 py-4 rounded-2xl bg-slate-900/80 border border-slate-700/80 text-white font-bold hover:border-emerald-500/80 hover:bg-slate-800/90 hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 shadow-xl';
+      }
+      if (heroChromeBadge) {
+        heroChromeBadge.textContent = 'Also available on';
+        heroChromeBadge.className = 'block text-xs uppercase font-mono tracking-wider text-slate-400 font-semibold';
+      }
+      if (heroChromePill) {
+        heroChromePill.className = 'hidden md:inline-block ml-auto text-xs px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 font-mono font-bold';
+      }
     }
 
     // 2. Screenshot Switcher Logic
