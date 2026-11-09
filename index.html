@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-[#07090F] text-[#F8FAFC] antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TinyPause — Mindful Browsing Extension for Chrome & Firefox</title>
+  <meta name="description" content="Break the loop of mindless doomscrolling. TinyPause adds an intentional pause and intention check before you open distracting sites. 100% private, local-first.">
+  <meta name="theme-color" content="#07090F">
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tinypause.anvik.studio/">
+  <meta property="og:title" content="TinyPause — Mindful Browsing Extension">
+  <meta property="og:description" content="Break the loop of mindless browsing. An intentional pause before distracting websites. 100% private, local-first.">
+  <meta property="og:image" content="https://tinypause.anvik.studio/assets/images/screen.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/icon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icon-32.png">
+
+  <!-- Google Fonts: Fraunces & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Fraunces', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            obsidian: '#07090F',
+            cardBg: '#0B0F17',
+            borderSlate: '#1E293B',
+            forest: {
+              DEFAULT: '#1b382b',
+              400: '#9bc4b4',
+              500: '#698164',
+              700: '#234938',
+              800: '#1b382b',
+              900: '#152c22',
+            },
+            sage: {
+              200: '#d3ddd1',
+              300: '#b4c4b1',
+              400: '#8ca287',
+              500: '#698164',
+            }
+          },
+          animation: {
+            'breathe': 'breathe 8s ease-in-out infinite',
+            'breathe-slow': 'breathe 10s ease-in-out infinite',
+            'subtle-pulse': 'subtlePulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            breathe: {
+              '0%, 100%': { transform: 'scale(1)', opacity: '0.6' },
+              '40%, 60%': { transform: 'scale(1.22)', opacity: '0.95' },
+            },
+            subtlePulse: {
+              '0%, 100%': { opacity: '0.7', transform: 'scale(1)' },
+              '50%': { opacity: '1', transform: 'scale(1.05)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-serif-heading {
+      font-family: 'Fraunces', serif;
+    }
+  </style>
+</head>
+<body class="bg-[#07090F] text-[#F8FAFC] font-sans min-h-screen flex flex-col justify-between tracking-tight selection:bg-emerald-950 selection:text-emerald-300">
+
+  <!-- Ambient Glow -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[720px] h-[400px] bg-gradient-to-b from-emerald-950/20 via-slate-900/10 to-transparent blur-3xl opacity-80"></div>
+    <div class="absolute top-1/3 -right-40 w-[450px] h-[450px] bg-emerald-950/15 blur-3xl rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-20 -left-40 w-[450px] h-[450px] bg-emerald-950/15 blur-3xl rounded-full pointer-events-none"></div>
+  </div>
+
+  <div class="relative z-10 flex flex-col min-h-screen">
+
+    <!-- 1. Header Navigation -->
+    <header class="w-full max-w-5xl mx-auto px-6 py-6 flex items-center justify-between border-b border-[#1E293B]/60">
+      <!-- Left: Brand Lockup -->
+      <a href="#" class="flex items-center gap-3 group focus:outline-none focus:ring-1 focus:ring-emerald-400 rounded-lg transition-all">
+        <div class="w-10 h-10 rounded-xl bg-emerald-950/60 border border-emerald-800/60 flex items-center justify-center p-2 group-hover:scale-105 group-hover:border-emerald-500/50 transition-all">
+          <img src="assets/images/icon.svg" alt="TinyPause Logo" class="w-full h-full">
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold text-lg text-[#F8FAFC] tracking-tight leading-none">
+            TinyPause
+          </span>
+          <span class="text-[11px] text-slate-400 font-mono">
+            by anvik.studio
+          </span>
+        </div>
+      </a>
+
+      <!-- Right: Navigation Links & CTA -->
+      <nav class="hidden md:flex items-center gap-8 text-sm text-[#94A3B8]">
+        <a href="#how-it-works" class="hover:text-[#F8FAFC] transition-colors">How It Works</a>
+        <a href="#demo" class="hover:text-[#F8FAFC] transition-colors">Live Demo</a>
+        <a href="#features" class="hover:text-[#F8FAFC] transition-colors">Features</a>
+        <a href="#faq" class="hover:text-[#F8FAFC] transition-colors">FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="#install" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500 text-slate-950 font-semibold text-xs sm:text-sm hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/20 transition-all">
+          <span>Get Extension</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="w-full max-w-5xl mx-auto px-6 py-12 sm:py-20 flex-grow flex flex-col gap-24 sm:gap-32">
+
+      <!-- 2. Hero Section -->
+      <section class="flex flex-col items-center text-center max-w-3xl mx-auto space-y-8">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B0F17] border border-emerald-900/50 text-xs text-emerald-300 font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Mindful Browsing • Chrome &amp; Firefox Extension</span>
+        </div>
+
+        <!-- Headline -->
+        <div class="space-y-5">
+          <h1 class="font-serif-heading text-4xl sm:text-6xl font-medium tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-emerald-200 leading-[1.12]">
+            Break the loop of mindless browsing.
+          </h1>
+          <p class="text-base sm:text-lg text-[#94A3B8] max-w-2xl mx-auto font-normal leading-relaxed">
+            TinyPause introduces an intentional moment of calm before you enter distracting websites. Take one conscious breath, state your intent, and stay in control—with zero telemetry and 100% private local storage.
+          </p>
+        </div>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+          <a href="#install" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-emerald-500 text-slate-950 font-bold text-sm hover:bg-emerald-400 hover:shadow-xl hover:shadow-emerald-500/25 transition-all">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/>
+            </svg>
+            <span>Install TinyPause Free</span>
+          </a>
+          <a href="#demo" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#0B0F17] border border-[#1E293B] text-slate-300 font-medium text-sm hover:text-white hover:border-slate-600 transition-all">
+            <span>Try Live Simulator &darr;</span>
+          </a>
+        </div>
+
+        <!-- Trust Assurances -->
+        <div class="flex flex-wrap items-center justify-center gap-y-2 gap-x-6 text-xs text-slate-400 font-mono pt-3">
+          <span class="flex items-center gap-1.5"><span class="text-emerald-400 font-bold">&check;</span> No account needed</span>
+          <span class="flex items-center gap-1.5"><span class="text-emerald-400 font-bold">&check;</span> 100% Local-first</span>
+          <span class="flex items-center gap-1.5"><span class="text-emerald-400 font-bold">&check;</span> Zero telemetry tracking</span>
+          <span class="flex items-center gap-1.5"><span class="text-emerald-400 font-bold">&check;</span> Open source</span>
+        </div>
+      </section>
+
+      <!-- 3. Interactive Live Demo / Simulator -->
+      <section id="demo" class="space-y-6">
+        <div class="text-center max-w-xl mx-auto space-y-2">
+          <p class="text-xs uppercase tracking-widest font-semibold text-emerald-400">Interactive Experience</p>
+          <h2 class="font-serif-heading text-2xl sm:text-3xl font-medium text-[#F8FAFC]">
+            Experience the pause right now.
+          </h2>
+          <p class="text-sm text-[#94A3B8]">
+            Simulate what happens when you attempt to visit a monitored site. Feel the difference conscious friction makes.
+          </p>
+        </div>
+
+        <!-- Simulator Container -->
+        <div class="max-w-xl mx-auto bg-[#0B0F17] rounded-3xl border border-[#1E293B] p-6 sm:p-8 shadow-2xl shadow-emerald-950/20 relative overflow-hidden">
+          
+          <!-- Site Selector Tabs -->
+          <div class="flex items-center justify-between pb-6 border-b border-[#1E293B]/70">
+            <span class="text-xs text-slate-400 font-mono">SIMULATED DESTINATION:</span>
+            <div class="flex items-center gap-1.5" id="site-selector">
+              <button class="px-2.5 py-1 text-xs rounded-lg font-mono bg-emerald-950/80 text-emerald-300 border border-emerald-800/80 active-site" data-site="x.com">x.com</button>
+              <button class="px-2.5 py-1 text-xs rounded-lg font-mono bg-slate-900 text-slate-400 border border-slate-800 hover:text-white" data-site="reddit.com">reddit.com</button>
+              <button class="px-2.5 py-1 text-xs rounded-lg font-mono bg-slate-900 text-slate-400 border border-slate-800 hover:text-white" data-site="instagram.com">instagram.com</button>
+            </div>
+          </div>
+
+          <!-- Simulator Body -->
+          <div class="pt-8 flex flex-col items-center text-center space-y-6" id="sim-view">
+            <!-- Breathing Graphic -->
+            <div class="relative flex items-center justify-center w-20 h-20">
+              <div class="absolute -inset-3 rounded-full bg-emerald-500/20 animate-breathe blur-md pointer-events-none"></div>
+              <div class="absolute inset-0 rounded-full border border-emerald-500/40 animate-breathe pointer-events-none" style="animation-delay: 0.8s;"></div>
+              <div class="relative w-16 h-16 rounded-full bg-emerald-950/80 border border-emerald-700/80 flex items-center justify-center z-10 shadow-lg shadow-emerald-950/50">
+                <svg class="w-6 h-6 text-emerald-300" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C12 7.52285 7.52285 12 2 12C7.52285 12 12 16.4771 12 22C12 16.4771 16.4771 12 22 12C16.4771 12 12 7.52285 12 2Z"></path>
+                </svg>
+              </div>
+            </div>
+
+            <div class="space-y-1.5">
+              <span class="text-[11px] font-semibold tracking-[0.2em] uppercase text-emerald-400/90 font-mono">
+                Take one breath &bull; Inhale &bull; Exhale
+              </span>
+              <h3 class="font-serif-heading text-2xl text-white font-medium">
+                What brings you to <span id="target-site-label" class="text-emerald-300">x.com</span>?
+              </h3>
+              <p class="text-xs text-[#94A3B8]">State your purpose before continuing, or close this tab and return to focus.</p>
+            </div>
+
+            <!-- Intention Input Area -->
+            <div class="w-full space-y-2">
+              <div class="relative">
+                <input type="text" id="intention-input" placeholder="e.g. Check release announcement from tech team"
+                       class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all font-sans">
+                <span id="char-counter" class="absolute right-3 top-3 text-[11px] font-mono text-slate-500">0/4 min</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center gap-3 w-full">
+              <button id="btn-proceed" disabled
+                      class="w-full sm:w-1/2 py-2.5 px-4 rounded-xl bg-slate-800 text-slate-500 font-semibold text-xs uppercase tracking-wider transition-all duration-200 cursor-not-allowed">
+                Continue to Site &rarr;
+              </button>
+              <button id="btn-close-tab"
+                      class="w-full sm:w-1/2 py-2.5 px-4 rounded-xl bg-emerald-950/40 border border-emerald-800/60 text-emerald-300 font-semibold text-xs uppercase tracking-wider hover:bg-emerald-900/40 transition-all duration-200">
+                Close Tab (Step Away)
+              </button>
+            </div>
+
+            <!-- Status message feedback container -->
+            <div id="sim-feedback" class="hidden text-xs py-2 px-3 rounded-lg w-full font-mono"></div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 4. How It Works (3 Steps) -->
+      <section id="how-it-works" class="space-y-10">
+        <div class="border-b border-[#1E293B]/60 pb-3 flex items-center justify-between">
+          <h2 class="text-xs uppercase tracking-widest font-semibold text-[#94A3B8]">
+            How It Works
+          </h2>
+          <span class="text-xs text-slate-400 font-mono">Mindful Architecture</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Step 1 -->
+          <div class="p-6 rounded-2xl bg-[#0B0F17] border border-[#1E293B] space-y-4">
+            <span class="w-8 h-8 rounded-lg bg-emerald-950/80 border border-emerald-800/80 flex items-center justify-center text-emerald-400 font-mono text-sm font-bold">
+              01
+            </span>
+            <h3 class="font-bold text-lg text-white">Navigate to Monitored Sites</h3>
+            <p class="text-sm text-[#94A3B8] leading-relaxed">
+              When muscle memory urges you to click Twitter, Reddit, or your customized list of distracting domains, TinyPause immediately intercepts the request.
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="p-6 rounded-2xl bg-[#0B0F17] border border-[#1E293B] space-y-4">
+            <span class="w-8 h-8 rounded-lg bg-emerald-950/80 border border-emerald-800/80 flex items-center justify-center text-emerald-400 font-mono text-sm font-bold">
+              02
+            </span>
+            <h3 class="font-bold text-lg text-white">Take One Conscious Breath</h3>
+            <p class="text-sm text-[#94A3B8] leading-relaxed">
+              Instead of endless algorithmic feeds, a serene pause screen greets you with a breathing circle. You must record an intention with at least four characters.
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="p-6 rounded-2xl bg-[#0B0F17] border border-[#1E293B] space-y-4">
+            <span class="w-8 h-8 rounded-lg bg-emerald-950/80 border border-emerald-800/80 flex items-center justify-center text-emerald-400 font-mono text-sm font-bold">
+              03
+            </span>
+            <h3 class="font-bold text-lg text-white">Choose Mindfully</h3>
+            <p class="text-sm text-[#94A3B8] leading-relaxed">
+              Proceed with stated purpose, or hit "Close Tab" to walk away. If you proceed, TinyPause precisely tracks your active foreground time without saving private content.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. App Screenshot / Visual Showcase -->
+      <section class="space-y-8">
+        <div class="text-center max-w-xl mx-auto space-y-2">
+          <p class="text-xs uppercase tracking-widest font-semibold text-emerald-400">Thoughtful Craft</p>
+          <h2 class="font-serif-heading text-2xl sm:text-3xl font-medium text-[#F8FAFC]">
+            Designed to calm, not punish.
+          </h2>
+          <p class="text-sm text-[#94A3B8]">
+            Most site blockers use aggressive red warning screens that cause guilt and defiance. TinyPause uses organic serenity that fosters true agency.
+          </p>
+        </div>
+
+        <div class="rounded-3xl border border-[#1E293B] p-2 sm:p-4 bg-[#0B0F17] shadow-2xl shadow-emerald-950/30 overflow-hidden">
+          <img src="assets/images/screen.png" alt="TinyPause extension screen preview" class="w-full rounded-2xl border border-slate-800/60 object-cover">
+        </div>
+      </section>
+
+      <!-- 6. Features Grid -->
+      <section id="features" class="space-y-6">
+        <div class="border-b border-[#1E293B]/60 pb-3 flex items-center justify-between">
+          <h2 class="text-xs uppercase tracking-widest font-semibold text-[#94A3B8]">
+            Key Capabilities
+          </h2>
+          <span class="text-xs text-slate-400 font-mono">Built for Humans</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Feature 1 -->
+          <div class="p-6 rounded-2xl bg-[#0B0F17] border border-[#1E293B] space-y-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+              </svg>
+            </div>
+            <h3 class="font-bold text-base text-white">The Intention Gate</h3>
+            <p class="text-sm text-[#94A3B8] leading-relaxed">
+              Requires typing at least 4 letters explaining why you are visiting. This micro-moment of typing engages your conscious brain and breaks automatic doomscrolling.
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="p-6 rounded-2xl bg-[#0B0F17] border border-[#1E293B] space-y-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="font-bold text-base text-white">Foreground-Only Duration Tracking</h3>
+            <p class="text-sm text-[#94A3B8] leading-relaxed">
+              Time only counts while the monitored tab is actively in the focused window. Leaving a tab open in the background will never inflate your active time statistics.
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="p-6 rounded-2xl bg-[#0B0F17] border border-[#1E293B] space-y-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+            </div>
+            <h3 class="font-bold text-base text-white">100% Local Browser Storage</h3>
+            <p class="text-sm text-[#94A3B8] leading-relaxed">
+              Your site list, recorded intentions, and browsing metrics stay on your machine inside <code class="text-xs font-mono text-emerald-300">storage.local</code>. Zero servers, zero telemetry.
+            </p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="p-6 rounded-2xl bg-[#0B0F17] border border-[#1E293B] space-y-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="font-bold text-base text-white">One-Click Tab Eject</h3>
+            <p class="text-sm text-[#94A3B8] leading-relaxed">
+              Realized you only opened the site out of habit? The prominent "Close Tab" button instantly dismisses the tab before you get hooked by the feed.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Numbers Section -->
+      <section class="p-8 rounded-3xl bg-[#0B0F17] border border-[#1E293B]">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div>
+            <strong class="block text-3xl sm:text-4xl font-bold text-white font-mono">100%</strong>
+            <span class="text-xs text-slate-400 mt-1 block">Local &amp; Private</span>
+          </div>
+          <div>
+            <strong class="block text-3xl sm:text-4xl font-bold text-white font-mono">0</strong>
+            <span class="text-xs text-slate-400 mt-1 block">Trackers or Cloud Logins</span>
+          </div>
+          <div>
+            <strong class="block text-3xl sm:text-4xl font-bold text-white font-mono">4+</strong>
+            <span class="text-xs text-slate-400 mt-1 block">Letters to Record Intent</span>
+          </div>
+          <div>
+            <strong class="block text-3xl sm:text-4xl font-bold text-white font-mono">&infin;</strong>
+            <span class="text-xs text-slate-400 mt-1 block">Focus Hours Reclaimed</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. FAQ Section -->
+      <section id="faq" class="space-y-6">
+        <div class="border-b border-[#1E293B]/60 pb-3">
+          <h2 class="text-xs uppercase tracking-widest font-semibold text-[#94A3B8]">
+            Frequently Asked Questions
+          </h2>
+        </div>
+
+        <div class="space-y-4">
+          <details class="group p-5 rounded-2xl bg-[#0B0F17] border border-[#1E293B] cursor-pointer" open>
+            <summary class="flex items-center justify-between font-bold text-base text-white list-none">
+              <span>How is TinyPause different from traditional site blockers?</span>
+              <span class="text-emerald-400 transition-transform group-open:rotate-45 text-xl font-mono">+</span>
+            </summary>
+            <p class="mt-3 text-sm text-[#94A3B8] leading-relaxed">
+              Traditional site blockers lock you out completely, which often leads to frustration, willpower depletion, and disabling the extension. TinyPause does not ban sites; it introduces mindful friction. By forcing a breath and an intention, you decide whether your visit is purposeful or mindless habit.
+            </p>
+          </details>
+
+          <details class="group p-5 rounded-2xl bg-[#0B0F17] border border-[#1E293B] cursor-pointer">
+            <summary class="flex items-center justify-between font-bold text-base text-white list-none">
+              <span>Does TinyPause track or transmit my browsing data?</span>
+              <span class="text-emerald-400 transition-transform group-open:rotate-45 text-xl font-mono">+</span>
+            </summary>
+            <p class="mt-3 text-sm text-[#94A3B8] leading-relaxed">
+              Never. TinyPause does not communicate with any external backend servers. Your list of monitored domains, typed intentions, and session timestamps are stored solely in your browser's local extension storage. You can clear this history anytime in the settings.
+            </p>
+          </details>
+
+          <details class="group p-5 rounded-2xl bg-[#0B0F17] border border-[#1E293B] cursor-pointer">
+            <summary class="flex items-center justify-between font-bold text-base text-white list-none">
+              <span>Which browsers are supported?</span>
+              <span class="text-emerald-400 transition-transform group-open:rotate-45 text-xl font-mono">+</span>
+            </summary>
+            <p class="mt-3 text-sm text-[#94A3B8] leading-relaxed">
+              TinyPause is built natively on Manifest V3 and supports Google Chrome 120+, Mozilla Firefox 115+, Brave, Arc, Edge, and other Chromium-based browsers.
+            </p>
+          </details>
+
+          <details class="group p-5 rounded-2xl bg-[#0B0F17] border border-[#1E293B] cursor-pointer">
+            <summary class="flex items-center justify-between font-bold text-base text-white list-none">
+              <span>Can I add custom domains to monitor?</span>
+              <span class="text-emerald-400 transition-transform group-open:rotate-45 text-xl font-mono">+</span>
+            </summary>
+            <p class="mt-3 text-sm text-[#94A3B8] leading-relaxed">
+              Yes. Through the Settings page, you can add any website you find yourself browsing compulsively—whether it's news sites, shopping portals, video platforms, or forums.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <!-- 9. Install / Download Section -->
+      <section id="install" class="p-8 sm:p-12 rounded-3xl bg-gradient-to-b from-[#0B0F17] to-slate-950 border border-emerald-900/60 text-center space-y-6">
+        <div class="max-w-xl mx-auto space-y-3">
+          <span class="w-12 h-12 rounded-2xl bg-emerald-950 border border-emerald-700/80 mx-auto flex items-center justify-center p-2.5">
+            <img src="assets/images/icon.svg" alt="TinyPause" class="w-full h-full">
+          </span>
+          <h2 class="font-serif-heading text-3xl font-medium text-white">
+            Ready to reclaim your time?
+          </h2>
+          <p class="text-sm text-[#94A3B8]">
+            Install TinyPause for free. No credit card, no email signup, no trackers.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+          <a href="https://github.com/abhishekBansal/tinypause" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-emerald-500 text-slate-950 font-bold text-sm hover:bg-emerald-400 hover:shadow-xl hover:shadow-emerald-500/25 transition-all">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+            <span>View Source &amp; Releases on GitHub</span>
+          </a>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 10. Footer -->
+    <footer class="w-full max-w-5xl mx-auto px-6 py-8 border-t border-[#1E293B]/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#94A3B8]">
+      <div class="flex items-center gap-2">
+        <span>&copy; 2026 TinyPause &bull; Crafted by <a href="https://anvik.studio" class="text-white hover:underline">anvik.studio</a></span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="https://anvik.studio" class="hover:text-white transition-colors">anvik.studio</a>
+        <a href="https://devtools.anvik.studio" class="hover:text-white transition-colors">DevTools</a>
+        <a href="https://fluxwall.anvik.studio" class="hover:text-white transition-colors">FluxWall</a>
+        <a href="https://github.com/abhishekBansal/tinypause" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GitHub ↗</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Interactive Simulator Script -->
+  <script>
+    const intentionInput = document.getElementById('intention-input');
+    const charCounter = document.getElementById('char-counter');
+    const btnProceed = document.getElementById('btn-proceed');
+    const btnCloseTab = document.getElementById('btn-close-tab');
+    const simFeedback = document.getElementById('sim-feedback');
+    const targetSiteLabel = document.getElementById('target-site-label');
+    const siteButtons = document.querySelectorAll('#site-selector button');
+
+    let currentSite = 'x.com';
+
+    siteButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        siteButtons.forEach(b => {
+          b.className = 'px-2.5 py-1 text-xs rounded-lg font-mono bg-slate-900 text-slate-400 border border-slate-800 hover:text-white';
+        });
+        btn.className = 'px-2.5 py-1 text-xs rounded-lg font-mono bg-emerald-950/80 text-emerald-300 border border-emerald-800/80 active-site';
+        currentSite = btn.dataset.site;
+        targetSiteLabel.textContent = currentSite;
+        simFeedback.className = 'hidden';
+      });
+    });
+
+    intentionInput.addEventListener('input', (e) => {
+      const len = e.target.value.trim().length;
+      charCounter.textContent = `${len}/4 min`;
+      if (len >= 4) {
+        btnProceed.disabled = false;
+        btnProceed.className = 'w-full sm:w-1/2 py-2.5 px-4 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs uppercase tracking-wider hover:bg-emerald-400 cursor-pointer shadow-lg shadow-emerald-500/20 transition-all';
+      } else {
+        btnProceed.disabled = true;
+        btnProceed.className = 'w-full sm:w-1/2 py-2.5 px-4 rounded-xl bg-slate-800 text-slate-500 font-semibold text-xs uppercase tracking-wider transition-all duration-200 cursor-not-allowed';
+      }
+    });
+
+    btnProceed.addEventListener('click', () => {
+      simFeedback.className = 'block text-xs py-2.5 px-4 rounded-xl bg-emerald-950/80 border border-emerald-600/80 text-emerald-300 font-mono';
+      simFeedback.innerHTML = `✓ Intention recorded: "${intentionInput.value.trim()}"<br>Navigating to ${currentSite} with clear purpose!`;
+    });
+
+    btnCloseTab.addEventListener('click', () => {
+      simFeedback.className = 'block text-xs py-2.5 px-4 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 font-mono';
+      simFeedback.innerHTML = `🛡 Tab closed! You just saved an average of 35 minutes of mindless browsing.`;
+      intentionInput.value = '';
+      charCounter.textContent = '0/4 min';
+      btnProceed.disabled = true;
+      btnProceed.className = 'w-full sm:w-1/2 py-2.5 px-4 rounded-xl bg-slate-800 text-slate-500 font-semibold text-xs uppercase tracking-wider transition-all duration-200 cursor-not-allowed';
+    });
+  </script>
+
+</body>
+</html>
